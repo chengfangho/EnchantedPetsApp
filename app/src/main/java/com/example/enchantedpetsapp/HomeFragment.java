@@ -33,10 +33,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public HomeFragment(AWSIotMqttManager mqttManager) {
-        this.mqttManager = mqttManager;
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -69,10 +65,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    public void see(){
-
     }
 
 }
