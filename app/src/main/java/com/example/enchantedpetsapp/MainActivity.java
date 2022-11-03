@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
@@ -21,26 +22,11 @@ import com.amazonaws.services.iot.client.AWSIotMqttClient;
 import com.example.enchantedpetsapp.databinding.ActivityMainBinding;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-
-    private static final String CUSTOMER_SPECIFIC_IOT_ENDPOINT = "ap9bgs3gweked-ats.iot.us-west-1.amazonaws.com";
-
-    private static final String COGNITO_POOL_ID = "us-west-1:4c05e995-41b5-45c8-8758-21edc190a1ce";
-
-    private static final Regions MY_REGION = Regions.US_WEST_1;
-
-    Button buttonDispense;
-    Button buttonInteract;
-    Button buttonSnap;
-    Button buttonVoice;
-
-    AWSIotMqttManager mqttManager;
-    String clientId;
-    CognitoCachingCredentialsProvider credentialsProvider;
-
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,49 +50,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        /*buttonDispense = (Button) findViewById(R.id.dispense);
-        buttonDispense.setOnClickListener(dispenseClick);
-
-        buttonInteract = (Button) findViewById(R.id.interact);
-        buttonInteract.setOnClickListener(interactClick);
-
-        buttonSnap = (Button) findViewById(R.id.snap);
-        buttonSnap.setOnClickListener(snapClick);
-
-        buttonVoice = (Button) findViewById(R.id.voice);
-        buttonVoice.setOnClickListener(voiceClick);*/
-
-        clientId = UUID.randomUUID().toString();
-
-        credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(), // context
-                COGNITO_POOL_ID, // Identity Pool ID
-                MY_REGION // Region
-        );
-
-        mqttManager = new AWSIotMqttManager(clientId, CUSTOMER_SPECIFIC_IOT_ENDPOINT);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-            }
-        }).start();
-        mqttManager.connect(credentialsProvider, new AWSIotMqttClientStatusCallback() {
-            @Override
-            public void onStatusChanged(AWSIotMqttClientStatus status, Throwable throwable) {
-
-            }
-        });
-        System.out.println("Connected");
-
+        Connector connector = new Connector(this.getApplicationContext());
+        connector.connect();
     }
-
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManger = getSupportFragmentManager();
