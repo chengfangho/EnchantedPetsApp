@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         });
         connector = new Connector(this.getApplicationContext());
         connector.connect();
+        connector.subscribeMotion();
     }
 
     private void replaceFragment(Fragment fragment){
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
     public void snap(View view) {
         connector.publishSnap();
     }
-    public void voice(View view) {
-        connector.publishVoice();
-    }
+    public void voice(View view) {connector.publishVoice();}
 
 }

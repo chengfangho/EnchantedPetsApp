@@ -1,10 +1,14 @@
 package com.example.enchantedpetsapp;
 
 import android.content.Context;
+import android.webkit.JavascriptInterface;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
+import com.amazonaws.mobileconnectors.iot.AWSIotMqttNewMessageCallback;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
 import com.amazonaws.regions.Regions;
 import java.util.UUID;
@@ -49,4 +53,11 @@ public class Connector extends AppCompatActivity {
     public void publishSnap(){
         mqttManager.publishString("toggle","picow/motion", AWSIotMqttQos.QOS1);
     }
+    public void subscribeMotion(){
+        mqttManager.subscribeToTopic("picow/motion", AWSIotMqttQos.QOS1, new AWSIotMqttNewMessageCallback() {
+            public void onMessageArrived(String topic, byte[] data) {
+                Toast.makeText(getApplicationContext(),"motion detected",Toast.LENGTH_LONG).show();
+            }});
+    }
 }
+
