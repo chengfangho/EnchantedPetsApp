@@ -6,27 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback;
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttNewMessageCallback;
-import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.iot.client.AWSIotException;
-import com.amazonaws.services.iot.client.AWSIotMqttClient;
 import com.example.enchantedpetsapp.databinding.ActivityMainBinding;
 
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    Connector connector;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
-        Connector connector = new Connector(this.getApplicationContext());
+        connector = new Connector(this.getApplicationContext());
         connector.connect();
     }
 
@@ -61,5 +48,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void dispense(View view) {
+        connector.publishDispense();
+    }
+    public void interact(View view) {
+        connector.publishInteract();
+    }
+    public void snap(View view) {
+        connector.publishSnap();
+    }
+    public void voice(View view) {
+        connector.publishVoice();
+    }
 
 }

@@ -1,17 +1,13 @@
 package com.example.enchantedpetsapp;
 
 import android.content.Context;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
 import com.amazonaws.regions.Regions;
-
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class Connector extends AppCompatActivity {
 
@@ -32,17 +28,25 @@ public class Connector extends AppCompatActivity {
         );
         mqttManager = new AWSIotMqttManager(clientId, CUSTOMER_SPECIFIC_IOT_ENDPOINT);
     }
+
     public void connect(){
         mqttManager.connect(credentialsProvider, new AWSIotMqttClientStatusCallback() {
             public void onStatusChanged(AWSIotMqttClientStatus status, Throwable throwable) {
 
             }
         });
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //mqttManager.publishString("toggle","picow/led", AWSIotMqttQos.QOS1);
+    }
+
+    public void publishDispense(){
+        mqttManager.publishString("toggle","picow/led", AWSIotMqttQos.QOS1);
+    }
+    public void publishInteract(){
+        mqttManager.publishString("toggle","picow/laser", AWSIotMqttQos.QOS1);
+    }
+    public void publishVoice(){
+        mqttManager.publishString("toggle","picow/dispense", AWSIotMqttQos.QOS1);
+    }
+    public void publishSnap(){
+        mqttManager.publishString("toggle","picow/motion", AWSIotMqttQos.QOS1);
     }
 }
