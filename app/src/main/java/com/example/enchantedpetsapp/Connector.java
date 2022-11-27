@@ -5,6 +5,8 @@ import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttClientStatusCallback;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
@@ -42,21 +44,23 @@ public class Connector extends AppCompatActivity {
     }
 
     public void publishDispense(){
-        mqttManager.publishString("toggle","picow/led", AWSIotMqttQos.QOS1);
+        mqttManager.publishString("toggle","picow/dispenser", AWSIotMqttQos.QOS1);
     }
-    public void publishInteract(){
+    public void publishLaser(){
         mqttManager.publishString("toggle","picow/laser", AWSIotMqttQos.QOS1);
     }
-    public void publishVoice(){
-        mqttManager.publishString("toggle","picow/dispense", AWSIotMqttQos.QOS1);
+    public void publishBubble(){
+        mqttManager.publishString("toggle","picow/bubble", AWSIotMqttQos.QOS1);
     }
     public void publishSnap(){
         mqttManager.publishString("toggle","picow/motion", AWSIotMqttQos.QOS1);
     }
     public void subscribeMotion(){
+        System.out.println("subscribed");
         mqttManager.subscribeToTopic("picow/motion", AWSIotMqttQos.QOS1, new AWSIotMqttNewMessageCallback() {
             public void onMessageArrived(String topic, byte[] data) {
                 Toast.makeText(getApplicationContext(),"motion detected",Toast.LENGTH_LONG).show();
+                System.out.println("motion detected");
             }});
     }
 }

@@ -37,36 +37,40 @@
             android:text="username"
             android:layout_marginBottom="20dp"/>
 
-        <TextView
+        <Button
             android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
             android:text="Personal Info"
-            android:textSize="30dp" />
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
 
-        <TextView
+        <Button
             android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
             android:text="Notification"
-            android:textSize="30dp" />
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
 
-        <TextView
+        <Button
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="TextView"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
             android:text="Help"
-            android:textSize="30dp" />
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/textView5"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:text="Logout"
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

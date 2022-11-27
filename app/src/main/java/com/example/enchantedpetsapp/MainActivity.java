@@ -52,12 +52,10 @@ public class MainActivity extends AppCompatActivity {
     public void dispense(View view) {
         connector.publishDispense();
     }
-    public void interact(View view) {
-        connector.publishInteract();
+    public void laser(View view) {
+        connector.publishLaser();
     }
-    public void snap(View view) {
-        connector.publishSnap();
-    }
-    public void voice(View view) {connector.publishVoice();}
+    public void snap(View view) { connector.publishSnap();}
+    public void bubble(View view) {connector.publishBubble();}
 
 }

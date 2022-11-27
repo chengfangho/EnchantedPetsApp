@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/interact"
+        android:id="@+id/laser"
         android:layout_width="125dp"
         android:layout_height="70dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
-        android:text="Interact"
-        android:onClick="interact"
+        android:text="Laser"
+        android:onClick="laser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,13 +54,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/voice"
+        android:id="@+id/bubble"
         android:layout_width="125dp"
         android:layout_height="70dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
-        android:text="Voice"
-        android:onClick="voice"
+        android:text="Bubble"
+        android:onClick="bubble"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
