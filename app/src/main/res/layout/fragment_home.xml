@@ -48,7 +48,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="30dp"
-        android:text="Snap"
+        android:text="Picture"
         android:onClick="snap"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

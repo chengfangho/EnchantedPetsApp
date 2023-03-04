@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BluetoothFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:srcCompat="@drawable/ic_baseline_bluetooth_24"
+            tools:src="@tools:sample/avatars"
+            android:layout_gravity="center" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="164dp"
+            android:layout_height="80dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text="              Bluetooth" />
+
+        <Button
+            android:id="@+id/textView3"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:text="Discover"
+            android:onClick="bluetooth"
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/textView4"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:text="Paired Device"
+            android:textAlignment="textStart"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

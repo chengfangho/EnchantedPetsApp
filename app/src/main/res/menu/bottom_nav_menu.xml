@@ -4,12 +4,17 @@
         android:title="Home"
         android:icon="@drawable/ic_baseline_home_24"
         android:id="@+id/Home"/>
+<!--    <item
+        android:title="Bluetooth"
+        android:icon="@drawable/ic_baseline_bluetooth_24"
+        android:id="@+id/Bluetooth"/>
     <item
-        android:title="Profile"
-        android:icon="@drawable/ic_baseline_person_24"
-        android:id="@+id/Profile"/>
+        android:title="Wifi"
+        android:icon="@drawable/ic_baseline_wifi_24"
+        android:id="@+id/Settings"/>-->
     <item
-        android:title="Settings"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:id="@+id/Settings"/>
+        android:title="BluetoothTest"
+        android:icon="@drawable/ic_baseline_wifi_24"
+        android:id="@+id/BluetoothTest"/>
 </menu>
+
