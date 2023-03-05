@@ -18,7 +18,6 @@ public class DeviceAdapter extends ArrayAdapter<BluetoothDevice> {
 
     public DeviceAdapter(Context context, int resource, ArrayList<BluetoothDevice> devices) {
         super(context, resource, devices);
-
         this.devices = devices;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
