@@ -7,14 +7,14 @@
 <!--    <item
         android:title="Bluetooth"
         android:icon="@drawable/ic_baseline_bluetooth_24"
-        android:id="@+id/Bluetooth"/>
+        android:id="@+id/Bluetooth"/>-->
     <item
-        android:title="Wifi"
-        android:icon="@drawable/ic_baseline_wifi_24"
-        android:id="@+id/Settings"/>-->
-    <item
-        android:title="BluetoothTest"
+        android:title="Bluetooth/Wifi"
         android:icon="@drawable/ic_baseline_wifi_24"
         android:id="@+id/BluetoothTest"/>
+    <item
+        android:title="Settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/Settings"/>
 </menu>
 

@@ -1,13 +1,18 @@
 package com.example.enchantedpetsapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
@@ -19,18 +24,17 @@ import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
  */
 public class HomeFragment extends Fragment{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private AWSIotMqttManager mqttManager;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private VideoView videoView;
+    private Uri videoUri;
+
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
     /**
@@ -57,6 +61,39 @@ public class HomeFragment extends Fragment{
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set up the video view
+        videoView = view.findViewById(R.id.video);
+
+        // Set the media controller
+        MediaController mediaController = new MediaController(getContext());
+        mediaController.setAnchorView(videoView);
+        mediaController.removeAllViews();
+        videoView.setMediaController(mediaController);
+
+        // Start the stream
+        String streamUrl = "https://pica.serveo.net/?action=stream";
+        videoUri = Uri.parse(streamUrl);
+        videoView.setVideoURI(videoUri);
+        videoView.start();
+    }
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resume the video when the fragment is resumed
+        if (videoView != null && !videoView.isPlaying()) {
+            videoView.setVideoURI(videoUri);
+            videoView.start();
         }
     }
 

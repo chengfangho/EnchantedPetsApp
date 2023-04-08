@@ -1,19 +1,29 @@
 package com.example.enchantedpetsapp;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothSocket;
-import android.os.Bundle;
-import android.view.View;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+
 import com.example.enchantedpetsapp.databinding.ActivityMainBinding;
 
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -28,34 +38,50 @@ public class MainActivity extends AppCompatActivity {
     BluetoothSocket mBluetoothSocket;
     static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
+        // Inflate the welcome screen layout
+        setContentView(R.layout.activity_welcome);
+
+        // Set a click listener on the welcome screen to switch to the main activity immediately
+        findViewById(R.id.welcome_screen_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchToMainActivity();
+            }
+        });
+    }
+
+    private void switchToMainActivity() {
+        // Switch to the main activity
+        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        HomeFragment home = new HomeFragment();
+        replaceFragment(home);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.Home:
                     replaceFragment(new HomeFragment());
                     break;
-                /*case R.id.Settings:
+                case R.id.Settings:
+                    home.onPause();
                     replaceFragment(new SettingsFragment());
                     break;
-                case R.id.Bluetooth:
-                    replaceFragment(new BluetoothFragment());
-                    break;*/
                 case R.id.BluetoothTest:
+                    home.onPause();
                     replaceFragment(new BluetoothFragmentTest());
+                    break;
             }
             return true;
         });
-        connector = new Connector(this.getApplicationContext());
+        connector = new Connector(getApplicationContext());
         connector.connect();
         connector.subscribeMotion();
     }
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManger = getSupportFragmentManager();
@@ -65,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void bluetoothConnect() {
-        /*mBluetoothManager = getSystemService(BluetoothManager.class);
+        mBluetoothManager = getSystemService(BluetoothManager.class);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         if (mBluetoothAdapter == null) {
             // Device doesn't support Bluetooth
@@ -97,20 +123,11 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException closeException) {
                 Log.e(TAG, "Could not close the client socket", closeException);
             }
-        }*/
+        }
     }
 
-
-    public void dispense(View view) {
-        connector.publishDispense();
-    }
-    public void laser(View view) {
-        connector.publishLaser();
-    }
+    public void dispense(View view) {connector.publishDispense();}
+    public void laser(View view) {connector.publishLaser();}
     public void snap(View view) { connector.publishSnap();}
     public void bubble(View view) {connector.publishBubble();}
-    public void bluetooth(View view) {bluetoothConnect();}
-    /*public void refresh_devices(View view){bluetooth.refreshDevices();}
-    public void start_configuration(View view){bluetooth.startConfiguration();}*/
-
-}
+    public void bluetooth(View view) {bluetoothConnect();}}
