@@ -16,6 +16,9 @@ import android.widget.VideoView;
 
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,20 +69,14 @@ public class HomeFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set up the video view
-        videoView = view.findViewById(R.id.video);
+        PlayerView playerView = view.findViewById(R.id.video);
+        SimpleExoPlayer player = new SimpleExoPlayer.Builder(getContext()).build();
+        playerView.setPlayer(player);
 
-        // Set the media controller
-        MediaController mediaController = new MediaController(getContext());
-        mediaController.setAnchorView(videoView);
-        mediaController.removeAllViews();
-        videoView.setMediaController(mediaController);
-
-        // Start the stream
-        String streamUrl = "https://pica.serveo.net/?action=stream";
-        videoUri = Uri.parse(streamUrl);
-        videoView.setVideoURI(videoUri);
-        videoView.start();
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse("https://pica.serveo.net/?action=stream"));
+        player.setMediaItem(mediaItem);
+        player.prepare();
+        player.play();
     }
     public void onPause() {
         super.onPause();
