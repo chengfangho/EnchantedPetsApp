@@ -16,9 +16,11 @@ import android.widget.VideoView;
 
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttManager;
 import com.amazonaws.mobileconnectors.iot.AWSIotMqttQos;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.longdo.mjpegviewer.MjpegView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,15 +70,12 @@ public class HomeFragment extends Fragment{
     }
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        PlayerView playerView = view.findViewById(R.id.video);
-        SimpleExoPlayer player = new SimpleExoPlayer.Builder(getContext()).build();
-        playerView.setPlayer(player);
-
-        MediaItem mediaItem = MediaItem.fromUri(Uri.parse("https://pica.serveo.net/?action=stream"));
-        player.setMediaItem(mediaItem);
-        player.prepare();
-        player.play();
+        MjpegView viewer = (MjpegView) view.findViewById(R.id.video);
+        viewer.setMode(MjpegView.MODE_FIT_WIDTH);
+        viewer.setAdjustHeight(true);
+        viewer.setSupportPinchZoomAndPan(true);
+        viewer.setUrl("http://192.168.68.132:8080/?action=stream");
+        viewer.startStream();
     }
     public void onPause() {
         super.onPause();
