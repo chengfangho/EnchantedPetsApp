@@ -22,6 +22,9 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.longdo.mjpegviewer.MjpegView;
 
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -36,6 +39,9 @@ public class HomeFragment extends Fragment{
     private String mParam2;
     private VideoView videoView;
     private Uri videoUri;
+
+    private JmDNS jmdns;
+    private ServiceInfo serviceInfo;
 
 
     public HomeFragment() {

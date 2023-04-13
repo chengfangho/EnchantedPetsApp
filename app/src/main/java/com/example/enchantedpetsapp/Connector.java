@@ -43,6 +43,7 @@ public class Connector extends AppCompatActivity {
         });
     }
 
+
     public void publishDispense(){
         mqttManager.publishString("toggle","picow/dispenser", AWSIotMqttQos.QOS1);
     }

@@ -93,4 +93,13 @@
         android:text=""
         android:layout_below="@+id/messages_label"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/ip_address_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/messages_label"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp" />
 </RelativeLayout>
