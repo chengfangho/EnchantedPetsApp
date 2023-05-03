@@ -4,10 +4,10 @@
         android:title="Home"
         android:icon="@drawable/ic_baseline_home_24"
         android:id="@+id/Home"/>
-<!--    <item
-        android:title="Bluetooth"
-        android:icon="@drawable/ic_baseline_bluetooth_24"
-        android:id="@+id/Bluetooth"/>-->
+    <item
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:id="@+id/Profile"/>
     <item
         android:title="Bluetooth/Wifi"
         android:icon="@drawable/ic_baseline_wifi_24"

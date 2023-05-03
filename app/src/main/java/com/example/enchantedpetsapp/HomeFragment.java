@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MjpegView viewer = (MjpegView) view.findViewById(R.id.video);
@@ -83,15 +84,15 @@ public class HomeFragment extends Fragment{
         viewer.setUrl("http://192.168.68.132:8080/?action=stream");
         viewer.startStream();
     }
+
+
     public void onPause() {
         super.onPause();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         // Resume the video when the fragment is resumed
         if (videoView != null && !videoView.isPlaying()) {
             videoView.setVideoURI(videoUri);

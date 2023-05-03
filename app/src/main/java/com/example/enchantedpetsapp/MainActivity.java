@@ -2,6 +2,8 @@ package com.example.enchantedpetsapp;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -16,14 +18,21 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
 import com.example.enchantedpetsapp.databinding.ActivityMainBinding;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -38,7 +47,29 @@ public class MainActivity extends AppCompatActivity {
     BluetoothSocket mBluetoothSocket;
     static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityResultLauncher<Intent> requestManageAllFilesAccessPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        if (Environment.isExternalStorageManager()) {
+                            // Permission granted
+                            // Take screenshot and save it to external storage
+                        } else {
+                            // Permission denied
+                        }
+                    }
+                }
+        );
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            requestManageAllFilesAccessPermissionLauncher.launch(intent);
+        } else {
+            // Take screenshot and save it to external storage
+        }
         super.onCreate(savedInstanceState);
 
         // Inflate the welcome screen layout
@@ -51,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 switchToMainActivity();
             }
         });
+
+
     }
 
     private void switchToMainActivity() {
@@ -74,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                     home.onPause();
                     replaceFragment(new BluetoothFragmentTest());
                     break;
+                case R.id.Profile:
+                    home.onPause();
+                    replaceFragment(new ProfileFragment());
             }
             return true;
         });
@@ -128,6 +164,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void dispense(View view) {connector.publishDispense();}
     public void laser(View view) {connector.publishLaser();}
-    public void snap(View view) { connector.publishSnap();}
+    public void snap(View view) {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }}
     public void bubble(View view) {connector.publishBubble();}
     public void bluetooth(View view) {bluetoothConnect();}}

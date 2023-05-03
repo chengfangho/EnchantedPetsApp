@@ -25,6 +25,7 @@ public class SettingsFragment extends Fragment {
     private String mParam2;
 
     public SettingsFragment() {
+
         // Required empty public constructor
     }
 

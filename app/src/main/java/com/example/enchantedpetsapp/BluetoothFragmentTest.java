@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
@@ -191,8 +192,6 @@ public class BluetoothFragmentTest extends Fragment {
                 mmSocket.close();
 
                 writeOutput("Success.");
-                writeOutput("IP: " + mmSocket.getRemoteDevice().getAddress());
-
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
